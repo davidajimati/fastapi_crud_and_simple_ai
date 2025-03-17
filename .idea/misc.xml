@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12 (financial-oracle)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (my_agent_o1)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (fastapi_crud_and_test_models)" project-jdk-type="Python SDK" />
 </project>

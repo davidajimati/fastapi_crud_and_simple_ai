@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 from datetime import datetime
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -86,7 +87,8 @@ class BookDbService:
     async def get_all_book_records(self) -> dict[str, str | Any]:
         records_cursor = self.db.collection.find({})
         records = await records_cursor.to_list(None)
-        return await ApiResponse.build_details_api_response({"books": records})
+        books = [UpdateBookModel(**record) for record in records]
+        return await ApiResponse.build_details_api_response({"books": books})
 
     async def create_new_record(self, entry: BookModel) -> dict[str, str | dict | Any]:
         """
@@ -178,6 +180,14 @@ class BookDbService:
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="*",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 
 @app.on_event("startup")
